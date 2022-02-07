@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Week 6 Lab - JavaScript DOM and Arrays</title>
+		<link rel="stylesheet" href="style2.css">
+        <meta charset="utf-8">
+<script>
+function validateForm(){			
+			     var arrayOfRawData= document.getElementsByTagName("input");
+				 for(var i=0; i<=4; i++){
+				    if(arrayOfRawData[i].value==""){
+					   alert("please enter your " + arrayOfRawData[i].name);
+					   return false;
+					}
+				 }
+				 
+				 if(document.getElementsByTagName("select").value==""){
+				    alert("Province must be selected.");
+					return false;
+				 }
+				 
+				 if(arrayOfRawData[4].value.length!= 6){
+				    alert("You must enter six digits for postal code");
+					return false;				 
+				 
+				 }
+
+				 var count=0;
+				 var totalprice=0;
+				 for(var i=5; i<8; i++){
+				     if(isNaN(arrayOfRawData[i].value)){
+					     do{
+					        alert("Please enter a number for product order");
+							return false;
+				           }while(isNaN(arrayOfRawData[i].value));
+				     }
+					 if(parseInt(arrayOfRawData[i].value)<0){
+					    alert("The order must have a vaule greater than zero");
+						return false;
+				     }
+				     if(arrayOfRawData[i].value=="" || parseInt(arrayOfRawData[i].value)==0){
+					    count++;
+					 }
+				 }	 
+				 if(count==2 || count==3){
+				    alert("You must order at least two widgets");
+				    return false;
+				 }				 
+				 
+				 var totalprice= (parseInt(widget1qty.value))*5 + (parseInt(widget2qty.value))*15 + (parseInt(widget3qty.value))*25 + calculate();
+				 alert("The total price, shipping included is: $" + totalprice + " Do you wish to submit your order now?");
+                 
+			} 
+			
+			function calculate(){
+                var shippingprice=0;
+			    var inputchoice= document.getElementsByName("shippingType");
+				if(inputchoice[0].checked== true){shippingprice= 5;}
+				else if( inputchoice[1].checked== true){shippingprice= 10;}
+			    else if( inputchoice[2].checked== true){shippingprice= 20;}
+				return shippingprice;
+			}
+			
+			
+			
+			
+		</script>
+
+    </head>
+    <body>
+        <h2>Order Form</h2>
+        <form class="orderForm" name="orderForm" method="post" onsubmit="return validateForm()" action="processForm.html">
+        <table>
+            <tr>
+                <th colspan="2">Personal Information</th>
+            </tr>
+            <tr>
+                <td>First Name:</td>
+                <td><input type="text" name="firstName" id="firstName" size="30" required></td>
+            </tr>
+            <tr>
+                <td>Last Name:</td>
+                <td><input type="text" name="lastName" id="lastName" size="30" required></td>
+            </tr>
+            <tr>
+                <td>Address:</td>
+                <td><input type="text" name="address" id="address" size="30" required></td>
+            </tr>
+            <tr>
+                <td>City:</td>
+                <td><input type="text" name="city" id="city" size="30" required></td>
+            </tr>
+            <tr>
+                <td>Province:</td>
+                <td><select name="province" id="province" size="1" required>
+                        <option disabled>Select a province</option>
+                        <option value="BC">British Columbia</option>
+                        <option value="AB">Alberta</option>
+                        <option value="SK">Saskatchewan</option>
+                        <option value="MB">Manitoba</option>
+                        <option value="ON">Ontario</option>
+                        <option value="QC">Québec</option>
+                        <option value="NB">New Brunswick</option>
+                        <option value="NS">Nova Scotia</option>
+                        <option value="PE">Prince Edward Island</option>
+                        <option value="NF">Newfoundland</option>
+                        <option value="YK">Yukon</option>
+                        <option value="NWT">Northwest Territories</option>
+                        <option value="NU">Nunavut</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Postal Code:</td>
+                <td><input type="text" name="postalCode" id="postalCode" maxlength="6" required></td>
+            </tr>
+            <tr>
+                <th colspan="2">Order Information</th>
+            </tr>
+            <tr>
+                <td rowspan="3">Select your products:<br>
+                    <span id="productError" class="errorMessage" hidden></span></td>
+                <td>Widget #1&nbsp;
+                    <input type="text" name="widget1qty" id="widget1qty" size="1" value="0" >Qty @ <strong>$5.00/ea</strong></td>
+            </tr>
+            <tr>
+                <td>Widget #2&nbsp;
+                    <input type="text" name="widget2qty" id="widget2qty" size="1" value="0">Qty @ <strong>$15.00/ea</strong></td>
+            </tr>
+            <tr>
+                <td>Widget #3&nbsp;
+                    <input type="text" name="widget3qty" id="widget3qty" size="1" value="0">Qty @ <strong>$25.00/ea</strong></td>
+            </tr>
+            <tr>
+                <td rowspan="3">Shipping Type:</td>
+                <td>Standard ($5.00)<input type="radio" name="shippingType" id="shippingTypeStandard" value="Standard" checked></td>
+
+            </tr>
+            <tr>
+                <td>Express ($10.00)<input type="radio" name="shippingType" id="shippingTypeExpress" value="Express"></td>
+            </tr>
+            <tr>
+                <td>Overnight ($20.00)<input type="radio" name="shippingType" id="shippingTypeOvernight" value="Overnight"></td>
+            </tr>
+            <tr>
+                <th colspan="2">Submit Order</th>
+            </tr>
+				
+		            <tr>
+                <td><input type="submit" onclick="validateForm()" name="btnSubmit" id="btnSubmit" value="Submit Order"></td>
+                <td><input type="reset" name="btnReset" id="btnReset" value="Reset Form"></td>
+            </tr>
+        </table>
+        </form>
+    </body>
+</html>
